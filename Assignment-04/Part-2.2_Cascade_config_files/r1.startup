@@ -1,0 +1,6 @@
+sleep 5
+echo 'Hi! I am r1' > /etc/init-exec.log
+#enable all executions for all users in the system
+chmod a+x /etc/init.sh
+#to manually modify the config
+sg vyattacfg -c /etc/init.sh

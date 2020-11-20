@@ -1,0 +1,412 @@
+\label{Interior Routing with OSPF}
+\chapter{Interior Routing with OSPF}
+OSPF is a link state routing protocol, in which each router sends information on the cost metric of its network interfaces to all other routers in the network. The information about the interfaces is sent in messages that are called link state advertisements (LSAs). LSAs are disseminated using flooding, each router maintains a link state database of all received LSAs, which provides the router with complete information about the network topology.
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/ospf lab network topology .png}
+  \caption{ospf lab network topology }
+  \label{fig:1.1}
+\end{figure}
+
+In this section we build the topology as shown in the above figure. hence, we have startup files for all the devices shown in the above network and we create folders for the routers as shown in the below example.
+\begin{itemize}
+    \item example:- core1-etc-frr-daemons and osfpd.conf
+\end{itemize}
+
+\section{Build the topology depicted in Figure 1.1 with Kathara.}
+To build the above topology we need configure lab.conf file and all the configuration in startup files 
+as shown below.
+\begin{itemize}
+    \item lab conf file 
+    
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/Bifur,balin and kili lab conf.png}
+  \caption{Bifur,balin and kili lab conf file}
+  \label{fig:1.2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/core routers lab conf .png}
+  \caption{core routers lab conf file}
+  \label{fig:1.3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/odpf routers lab conf.png}
+  \caption{osdpf routers lab conf file}
+  \label{fig:1.4}
+\end{figure}
+
+\item startup files of all devices.
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/bifur startup.png}
+  \caption{Bifur startup configuration as an example the rest of the hosts will be the same.}
+  \label{fig:1.5}
+\end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/Balin startup .png}
+%   \caption{balin startup configuration}
+%   \label{fig:1.6}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/kili startup.png}
+%   \caption{kili startup configuration}
+%   \label{fig:1.7}
+% \end{figure}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/core-1 startup .png}
+  \caption{core-01 startup configuration as an example the others cores startup files will be the same.}
+  \label{fig:1.8}
+\end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/core-2 startup .png}
+%   \caption{core-02startup configuration}
+%   \label{fig:1.9}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/core-3 startup.png}
+%   \caption{core-03 startup configuration}
+%   \label{fig:1.11}
+% \end{figure}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/ospf-01 startup.png}
+  \caption{ospf-01 startup configuration as an example the rest of ospf startup files will be the same.}
+  \label{fig:1.12}
+\end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-02 startup .png}
+%   \caption{ospf-02 startup configuration}
+%   \label{fig:1.13}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-03 startup .png}
+%   \caption{ospf-03 startup configuration}
+%   \label{fig:1.14}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-04 startup .png}
+%   \caption{ospf-04 startup configuration}
+%   \label{fig:1.15}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-05 startup .png}
+%   \caption{ospf-05 startup configuration}
+%   \label{fig:1.16}
+% \end{figure}
+
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-06 startup .png}
+%   \caption{ospf-06 startup configuration}
+%   \label{fig:1.17}
+% \end{figure}
+\end{itemize}
+
+With all the configuration's done as shown above we can start the kathara lab, for starting the kathara lab we also have to pull the new image with command 
+\begin{itemize}
+\item Docker pull unibaktr/alpine:frr
+\end{itemize}
+And we can then start the lab with command.
+\begin{itemize}
+
+\item sudo kathara lstart --privileged -l
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Kathara lab .png}
+  \caption{Kathara lab of OSPF network}
+  \label{fig:1.18}
+\end{figure}
+\end{itemize}
+
+\section{Enable and configure OSPF on all routers. Let the coreX routers form the backbone area, place ospf1 to ospf3 in one stub area and ospf4 to ospf6 in an- other one. Explain the concept of different areas in OSPF. What is the purpose to use different areas?}
+In this section for enabling OSFP we first need to assign ID's for all the routers and also we need to assign area ID's for all the OSPF areas.
+\\We have  nine routes in the network and we assign each router its on ID
+\begin{itemize}
+    \item Router ID'S
+    \\ ospf1 = 1.0.0.1
+    \\ ospf2 = 1.0.0.2
+    \\ ospf3 = 1.0.0.3
+    \\ ospf4 = 1.0.0.4
+    \\ ospf5 = 1.0.0.5
+    \\ ospf6 = 1.0.0.6
+    \\ core1 = 1.0.0.7
+    \\ core2 = 1.0.0.8
+\end{itemize}
+In the network shown above we have three stub OSPF areas and one backbone area and we place ospf1 to 0spf3 in one area and 0spf4 to ospf6 in one area.
+\\We assign area ids for all the four areas present in the network
+\begin{itemize}
+    \item AREA-01 (ospf01 to ospf03 in one stub area)
+    \\ ospf1 = 1.1.1.1
+    \\ ospf2 = 1.1.1.1
+    \\ ospf3 = 1.1.1.1
+    \\ CORE1 = 1.1.1.1
+    \item AREA-02 (ospf04 to ospf06 in another stub area)
+    \\ ospf4 = 2.2.2.2
+    \\ ospf5 = 2.2.2.2
+    \\ ospf6 = 2.2.2.2
+    \\core2 = 2.2.2.2
+    \item AREA-03 We also have a third area in which core3 is present.
+    \\ Core3 = 3.3.3.3
+    \item Apart from the three areas in the network we also have a back bone network.
+    \\Backbone area = 0.0.0.0
+    
+\end{itemize}
+
+Now after we assign all the areas and router ID's in the given network we configure OSPF on all the routers and for doing that we create folders for all the given routers in the following order 
+\\ example:- core1- etc- frr- Demons and ospfd files
+\begin{itemize}
+    \item Daemons File
+    \\Daemons file for all the routers will be same as we configure permission in daemons file so that ospfd file shall run in the lab.
+    \begin{figure}[H]
+\centering
+  \includegraphics[width=0.4\textwidth]{Images/daemon file .png} 
+  \caption{Daemons file for all the routers}
+  \label{fig:1.19}
+  
+\end{figure}
+
+\end{itemize}
+
+\begin{itemize}
+    \item OSPF configuration on all the devices.
+    \\we configure ospf configurations inside the ospfd file of all the routers as shown below.
+    \end{itemize}
+ 
+\begin{itemize}
+\item CORE-01 ospf configuration
+\\ Core-01 is inside two areas, Area-1 as-well as Backbone area hence we have the below configuration
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/core -01 ospf configuration .png}
+  \caption{Core01 Ospf configuration}
+  \label{fig:1.20}
+\end{figure}
+
+\item CORE-02 ospf configuration
+\\Core-02 is inside two areas, Area-2 as-well as Backbone area hence we make the below configuration 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/core-02 ospf configuration.png}
+  \caption{Core02 Ospf configuration}
+  \label{fig:1.21}
+\end{figure}
+
+\item CORE-03 ospf configuration
+\\ore-03 is inside two areas, Area-3 as-well as Backbone area hence we have the below configuration 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/core-03 ospf configuration .png}
+  \caption{Core03 Ospf configuration}
+  \label{fig:1.22}
+\end{figure}
+OSPF-01, OSPF-02 And OSPF-03 are inside one stub area with AREA-id 1.1.1.1
+hence we have the below configurations.
+\item Ospf-01 ospf configuration
+OSPF-01 is inside one stub area with AREA-id 1.1.1.1
+hence we have the below configurations.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/ospf-01 ospf configuration .png}
+  \caption{ospf01 Ospf configuration as an example for ospfd and ospf2 and ospf3 will have the same area and same way of configuration except there router ids}
+  \label{fig:1.23}
+\end{figure}
+
+% \item Ospf-02 ospf configuration
+% OSPF-02 is inside one stub area with AREA-id 1.1.1.1
+% hence we have the below configurations.
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-02 ospf configuration.png}
+%   \caption{ospf02 Ospf configuration}
+%   \label{fig:1.24}
+% \end{figure}
+
+% \item Ospf-03 ospf configuration
+% OSPF-03 is inside one stub area with AREA-id 1.1.1.1
+% hence we have the below configurations.
+% \begin{figure}[H]
+% \centering
+%   \includegraphics[width=0.7\textwidth]{Images/ospf-03 ospf configuration .png}
+%   \caption{ospf03 Ospf configuration}
+%   \label{fig:1.25}
+% \end{figure}
+
+OSPF-04, OSPF-05 And OSPF-06 are inside another stub area with AREA-id 2.2.2.2
+hence we have the below configurations.
+\item ospf-04 ospf configuration
+OSPF-04 is inside another stub area with AREA-id 2.2.2.2
+hence we have the below configurations.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/ospf-04 ospf configuration .png}
+  \caption{ospf04 Ospf configuration as an example for ospfd and ospf5 and ospf6 will have the same area and same way of configuration except there router ids }
+  \label{fig:1.26}
+\end{figure}
+
+\item ospf-05 ospf configuration
+OSPF-05 is inside another stub area with AREA-id 2.2.2.2
+hence we have the below configurations.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/ospf-05 ospf configuration .png}
+  \caption{ospf05 Ospf configuration}
+  \label{fig:1.27}
+\end{figure}
+
+\item ospf-06 ospf configuration
+OSPF-06 is  inside another stub area with AREA-id 2.2.2.2
+hence we have the below configurations.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/ospf-06 ospf configuration .png}
+  \caption{ospf06 Ospf configuration}
+  \label{fig:1.28}
+\end{figure}
+
+\end{itemize}
+
+\textbf{Explain the concept of different areas in OSPF. What is the purpose to use different areas}
+\\OSPF stands for Open Shortest Path First is a routing protocol commonly routing protocol used all over the world. It is a type of interior gateway dynamic routing protocol. Interior gateway protocol is used within an organisation also known as “autonomous system”. Dynamic routing protocol is nothing but the protocol which decides the best path for forwarding packets between source and destination networks
+\\OSPF uses areas to simplify administration and optimize traffic and resource utilization. 
+\\An area is simply a logical grouping of contiguous networks and routers. All routers in the same area have the same topology table and don’t know about routers in the other areas. 
+\\ \textbf{The main benefits of using areas in an OSPF network are}
+\begin{itemize}
+\item The routing tables on the routers are reduced.
+\item less time is required to run the SPF algorithm, since routers need to recalculate their link-state database only when there’s a topology change within their own area.
+\item Routing updates are reduced.
+\end{itemize}
+Each area in an OSPF network must be connected to the backbone area(also known as area 0). 
+\\All routers inside an area must have the same area ID in order to become OSPF neighbors.
+\\A router that has interfaces in more than one area (area 0 and area 1, and area 3) is known as an Area Border Router (ABR). A router that connects an OSPF network to other routing domains
+
+\section{With wire shark start to capture traffic on CD Y}
+In this section we are supposed to capture traffic on collision domain Y.
+\\ There is a problem in capturing by wireshark in mac book from Kathara lab so I tried to use tcpdump but unfortunately the image doesnot recognise tcpdump.
+hence we could not attach the required screenshot in this section.
+
+\section{From bifur, run a trace route to balin, Determine wether the path includes ospf2 or ospf3 and ospf4 or ospf6}
+In this section we will try to trace route from bifur to balin and determine whether the path includes the mentioned OSPF.
+\\For doing the trace route from bifur to balin we connect to bifur first and then we use the command traceroute and the destination IP address
+\begin{itemize}
+\item traceroute 12.0.8.20
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=1.2\textwidth]{Images/Traceroute from bifur to balin .png}
+  \caption{Trace route from bifur to balin}
+  \label{fig:1.29}
+\end{figure}
+When we trace route from bifur to balin we can see it goes through series of routers that also shown below.
+\\so, when we trace route from bifur first it goes to OSPF-01 then ospf01 router foreword's the packet to OSPF-03 then it is been forwarded to CORE-01 And then Core-02 And then the packet is forwarded to OSPF-04 and then to OSPF-05 and finally it reaches balin 
+\\so we can confirm that the path includes\textbf{SPF3 and OSPF6} 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/packet flow from bifur to balin .png}
+  \caption{Packet flow from bifur to balin with ospf}
+  \label{fig:1.30}
+\end{figure}
+
+\section{Now, start to continuously ping balin from bifur}
+In this session we start to ping balin from bifur and we wont stop until we shut down the eth0 on core1
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\textwidth]{Images/continuously ping balin from bifur.png}
+  \caption{continuously ping balin from bifur}
+  \label{fig:1.31}
+\end{figure}
+
+\section{Disconnect the interface eth0 of the core1}
+In this section we simultaneously connect core1 and shut down the eth0 on core1, when the ping is still going on from bifur to balin as shown in below figure.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/shutting down eth0 on core1.png}
+  \caption{shutting down eth0 on core1}
+  \label{fig:1.32}
+\end{figure}
+
+\section{Now,OSPF should update the routing tables .Examine the OSPF messages captured on CD Y to answer the following questions}
+\begin{itemize}
+    \item \textbf{How quickly are OSPF messages sent after the interface was shutdown.}
+    \\before shutting down the interface the ttl of the packets was ttl=58 but after the interface was shutdown the ttl is ttl=57
+    as shown in the figure 
+    \item \textbf {How many OSPF messages are sent?}
+    \\The total OSPF message sent can be calculated by seeing the capture but there is a problem in MAC and windows devices were we are not able to capture 
+    \item \textbf{Which type of OSPF packet is used for flooding link state information?}
+    \\ospf packets type 4
+    \item \textbf{ Which transport protocol is used?}
+    \\OSPF does not carry data via a transport protocol, such as the User Data gram Protocol (UDP) or the Transmission Control Protocol (TCP),instead, OSPF forms IP data grams directly
+    \item \textbf{ What is the destination address of OSPF packets?}
+    \\destination address of ospf packet is 12.0.8.20
+    \end{itemize}
+    
+\section{Wait until the ttl (Time to Live) value of ping changed, then, stop the capture and save its output.}
+In this section we will capture the output of the ping from bifur to balin, when interface on core1 is shut down the ttl valve of ping changes, hence we capture that output and save it as shown in the below screenshot.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\textwidth]{Images/Changed ttl value when interface was shut down in eth0 .png}
+  \caption{Changed ttl value when interface was shut down in eth0}
+  \label{fig:1.33}
+\end{figure}
+
+\section{Save and compare the routing tables of the core routers. Are they all identical?}
+In this section we capture all the routing table entries and compare them.
+\\we have three screenshots of core routers core1,core2 and core3 to compare with as shown below 
+\begin{itemize}
+\item Core1 routing table 
+\\when we look at the routing table of core1 we can see that there is not entry of interface eth0 because we have disconnected it. 
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Core01 routing table .png}
+  \caption{Core1 routing Table entries}
+  \label{fig:1.34}
+\end{figure}
+
+\item Core2 routing table 
+\\when we look at routing entries of core2 we can see that we have an entry of interface eth0 because we have not disconnected it.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Core2 routing table .png}
+  \caption{Core2 routing Table entries}
+  \label{fig:1.35}
+\end{figure}
+\item core3 routing table 
+\\when we look at routing entries of core3 we can see all the interfaces because we have not made any changes on core 3.
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Core3 routing table .png}
+  \caption{Core3 routing Table entries}
+  \label{fig:1.36}
+\end{figure}
+
+\end{itemize}
+
+When we compare all the three core routers, all of them are not similar because we have shut down interface between core1 and core3 i.e eth0 on core1 so core1 will not show the entry of core1
+Hence when compared all the route tables and conclude that they are not identical.

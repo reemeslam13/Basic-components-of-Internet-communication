@@ -1,0 +1,2 @@
+ip addr add 50.48.0.20/12 brd + dev eth0
+ip route add default via 50.48.0.3

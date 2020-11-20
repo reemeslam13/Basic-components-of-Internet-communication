@@ -1,0 +1,50 @@
+#Configurations for VPN server and client
+
+kathara connect r1 --shell /bin/vbash
+sg vyattacfg -c /etc/init.sh
+kathara connect r2 --shell /bin/vbash
+sg vyattacfg -c /etc/init.sh
+Kathara connect web_vpn
+vpnserver start
+vpncmd
+1(enter enter enter)
+
+HubCreate 
+Hub name:vpn
+Hub vpn
+UserCreate(2 users ktr and s2s)
+Create a Birdge: "BridgeCreate VPN /DEVICE:intern /TAP:yes"
+exit
+ifconfig(u can see the tap_intern device)
+
+Kathara connect pc1
+vpnclient start
+vpncmd
+NicCreate 
+
+
+AccountCreate(VPN Client>AccountCreate
+AccountCreate command - Create New VPN Connection Setting
+Name of VPN Connection Setting: intern
+
+Destination VPN Server Host Name and Port Number: 30.30.0.2:443
+
+Destination Virtual Hub Name: VPN
+
+Connecting User Name: ktr
+
+Used Virtual Network Adapter Name: intern
+
+The command completed successfully.)
+
+AccountPasswordSet (AccountPasswordSet 
+AccountPasswordSet command - Set User Authentication Type of VPN Connection Setting to Password Authentication
+Name of VPN Connection Setting: intern
+Please enter the password. To cancel press the Ctrl+D key.
+
+Password: ***********
+Confirm input: ***********
+
+Specify standard or radius: standard
+
+The command completed successfully.)

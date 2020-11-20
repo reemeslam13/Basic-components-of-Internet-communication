@@ -1,0 +1,4 @@
+#!/bin/sh
+ip addr add 40.40.0.101/24 brd + dev eth0
+ip route add default via 40.40.0.2 dev eth0
+ip route add default via 40.40.0.99 dev eth0

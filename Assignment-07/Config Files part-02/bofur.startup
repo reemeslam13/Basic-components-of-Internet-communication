@@ -1,0 +1,2 @@
+#!/bin/sh
+dhcpcd -6 -n eth0

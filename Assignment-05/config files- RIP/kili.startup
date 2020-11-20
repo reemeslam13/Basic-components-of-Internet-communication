@@ -1,0 +1,2 @@
+ip addr add 13.0.0.30/20 brd + dev eth0
+ip route add default via 13.0.0.4

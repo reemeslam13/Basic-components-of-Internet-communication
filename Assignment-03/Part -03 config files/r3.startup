@@ -1,0 +1,5 @@
+ip addr add 20.20.0.3/20 brd + dev eth0
+ip addr add 50.50.0.3/25 brd + dev eth1
+ip addr add 2.0.0.3/8 brd + dev eth2
+
+ip route add default via 20.20.0.1 dev eth0

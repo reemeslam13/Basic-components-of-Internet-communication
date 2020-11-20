@@ -1,0 +1,147 @@
+\label{Dynamic Routing with RIP}
+\chapter{Dynamic Routing with RIP}
+In this section we will use \textbf{Routing information protocol} (RIP) instead of OSPF.
+RIP is a dynamic routing protocol which uses hop count as a routing metric to find the best path between the source and the destination network. In contrast to OSPF, in RIP We do not need to assign id or area to routers we just need to assign each router its network interfaces as we can see in \ref{fig:2.1}. 
+Now we are going to go through RIP step by step to check how easier it is than OSPF.
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.5\textwidth]{Images/exampleForripdConf.png}
+  \caption{RIP conf file for router rip1}
+  \label{fig:2.1}
+\end{figure}
+
+\section{Deploying The topology and ensuring connectivity between hosts}
+\subsection{Deploying the topology}
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/topology.png}
+  \caption{Deploying The topology of the network using Rip with the FRRouting framework.}
+  \label{fig:2.2}
+\end{figure}
+\section{ensuring connectivity between bofur, bombur, kili and dori.}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\textwidth]{Images/bofurToRest.png}
+  \caption{Pinging from Bofur to other hosts.}
+  \label{fig:2.3}
+\end{figure}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=1.2\textwidth]{Images/bomburToRest.png}
+  \caption{Pinging from Bombur to other hosts.}
+  \label{fig:2.4}
+\end{figure}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/doriToRest.png}
+  \caption{Pinging from Dori to other hosts.}
+  \label{fig:2.5}
+\end{figure}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{Images/kiliToRest.png}
+  \caption{Pinging from Kili to other hosts.}
+  \label{fig:2.6}
+\end{figure}
+
+\section{Disabling eth2 interface of rip5}
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.6\textwidth]{Images/shuttingeth2DownRip5.png}
+  \caption{Shutting down eth2 in Rip5.}
+  \label{fig:2.7}
+\end{figure}
+
+\section{Wireshark capture on CD O}
+There is a problem in capturing by wireshark in macbook from Kathara lab so I tried to use tcpdump but unfortunately the image doesnot recognise tcpdump.
+
+\section{Now lets traceroute to explore the route path between hosts using RIP}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/rip5disBofurtoBombur.png}
+  \caption{Traceroute from bofur to bombur.}
+  \label{fig:2.8}
+\end{figure}
+As we can see from figure \ref{fig:2.8} RIP uses hop count to figure out the path that has lowest number of routers between source and destination.
+
+\section{Start pinging from bofur to bombur}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/ripPingboftobom.png}
+  \caption{Start pinging from bofur to bombur.}
+  \label{fig:2.9}
+\end{figure}
+\section{Enable eth2 again in rip5}
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/enableRIP5.png}
+  \caption{Enabling eth2 in rip5 again.}
+  \label{fig:2.10}
+\end{figure}
+
+\subsection{Checking change in TTL}
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/ripTTL.jpeg}
+  \caption{Enabling eth2 in rip5 again.}
+  \label{fig:2.11}
+\end{figure}
+However Rip concept is easier than ospf as we do not need to define id or area for routers it took longer time for ttl to change. This is expected as rip will figure out everything by itself so it will take longer time to figure out the change.
+
+\section{Shutdown the link between rip5 and rip3 again by disabling the particular inter-face. What is the effect on the routing tables of the other routers? Show the routing tables of each router again. Can you still reach bombur from bofur? Is it the same path?}
+In this section we disable the link between rip5 and rip3 that is cD o and on rip5 it is eth2 and on rip3 its is eth1
+\begin{itemize}
+    \item On RIP5 we disable eth2
+    \item On RIP3 we disable eth1
+\end{itemize}
+we disable the interfaces with the following commands on rip5 and rip3
+\begin{itemize}
+    \item ip link set eth2 down
+    \item ip link set eth1 down
+\end{itemize}
+After shut down the particular interface on both the routers we check the effect on other routers like rip1,rip2 and rip4 routing tables as shown below.
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/RIP1 before and after routes.png}
+  \caption{Before and after routes of RIP1 after shutting down the interface on rip5 and rip3}
+  \label{fig:2.11}
+\end{figure}
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/RIP-2 before and after routes .png}
+  \caption{Before and after routes of RIP2 after shutting down the interface on rip5 and rip3}
+  \label{fig:2.11}
+\end{figure}
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/rip4 before and after routes.png}
+  \caption{Before and after routes of RIP4 after shutting down the interface on rip5 and rip3}
+  \label{fig:2.11}
+\end{figure}
+
+And yes, we can still reach bombur from bofur but from other path because of the shutting down of the path between rip5 and rip3 
+as shown below.
+
+ \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Path before Interface was up between rip5 and rip3.png}
+  \caption{Path before Interface was up between rip5 and rip3}
+  \label
+  \begin{figure}[H]
+\centering
+  \includegraphics[width=0.9\textwidth]{Images/Path after we disconnect interfact between rip5 and rip3.png}
+  \caption{Path after we disconnect interface between rip5 and rip3}
+  \label{fig:2.11}
+\end{figure}{fig:2.11}
+\end{figure}
+\section{RIP and security}
+However Rip is simple and easy. Attacking it, is also easy as Whenever there is change in the network, running rip router will send any updates to its neighbour routers so if the attacker send fake rip response messages. The other routers will eventually insert the malicious entries in there tables and start broadcasting the changes to neighbours and that will make it easier to convergence to know the topology.
+
+

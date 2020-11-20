@@ -1,0 +1,4 @@
+ip addr add 12.0.5.25/24 brd + dev eth0
+ip addr add 12.0.2.25/23 brd + dev eth1
+ip addr add 12.0.8.25/21 brd + dev eth2
+frrinit.sh start

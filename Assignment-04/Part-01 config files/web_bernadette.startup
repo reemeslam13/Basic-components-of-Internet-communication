@@ -1,0 +1,3 @@
+#!/bin/sh
+ip addr add 50.50.0.101/25 brd + dev eth0
+ip route add default via  50.50.0.3 dev eth0

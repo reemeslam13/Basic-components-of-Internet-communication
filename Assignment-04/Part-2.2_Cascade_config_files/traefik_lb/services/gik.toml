@@ -1,0 +1,37 @@
+## Dynamic configuration
+[http.routers]
+  [http.routers.gik]
+    rule = "Host(`gik.de`)"
+    service = "app"
+
+## Dynamic configuration for weighted round robin
+[http.services]
+    [http.services.app]
+        [[http.services.app.weighted.services]]
+            name = "toSheldon"
+            weight = 6
+      
+        [[http.services.app.weighted.services]]
+            name = "toLeonard"
+            weight = 3
+        
+        [[http.services.app.weighted.services]]
+            name = "toHoward"
+            weight = 1
+
+    [http.services.toSheldon]
+        [http.services.toSheldon.loadBalancer]
+            [[http.services.toSheldon.loadBalancer.servers]]
+                url = "http://40.40.0.100"
+
+    [http.services.toLeonard]
+        [http.services.toLeonard.loadBalancer]
+            [[http.services.toLeonard.loadBalancer.servers]]
+                url = "http://40.40.0.101"
+
+    [http.services.toHoward]
+        [http.services.toHoward.loadBalancer]
+            [[http.services.toHoward.loadBalancer.servers]]
+                url = "http://40.40.0.102"            
+  
+ 

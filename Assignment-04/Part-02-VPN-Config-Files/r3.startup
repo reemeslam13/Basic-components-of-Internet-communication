@@ -1,0 +1,39 @@
+ip addr add 20.20.0.3/20 brd + dev eth0
+ip addr add 50.50.0.3/25 brd + dev eth1
+ip addr add 2.0.0.3/8 brd + dev eth2
+
+ip route add default via 20.20.0.1 dev eth0
+
+
+iptables -F
+iptables -X
+
+ 
+
+ iptables -P INPUT DROP
+ iptables -P OUTPUT DROP
+ iptables -P FORWARD DROP
+
+ 
+
+ 
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+ 
+
+ 
+
+iptables -A FORWARD -s 2.0.0.0/8  -j ACCEPT 
+iptables -A FORWARD -d 2.0.0.0/8  -j ACCEPT 
+
+ 
+
+
+iptables -A FORWARD -d 50.50.0.0/25 -p tcp --dport 80 -j ACCEPT 
+
+ 
+
+iptables -A FORWARD -s 50.50.0.0/25 -p tcp --sport 80 -j ACCEPT 
+

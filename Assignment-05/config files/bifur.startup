@@ -1,0 +1,2 @@
+ip addr add 11.8.0.10/13 brd + dev eth0
+ip route add default via 11.8.0.11

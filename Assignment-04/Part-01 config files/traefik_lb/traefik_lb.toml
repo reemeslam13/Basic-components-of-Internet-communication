@@ -1,0 +1,9 @@
+## Static configuration
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+
+[providers]
+  [providers.file]
+    directory = "/hostlab/traefik_lb/services/"
+    watch= true

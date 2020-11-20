@@ -1,0 +1,16 @@
+$TTL 60000
+@ IN SOA dns.de. root.dns.de. (
+        2006031201 ; serial
+        28 ; refresh
+        14 ; retry
+        3600000 ; expire
+        0 ; negative cache ttl
+    )
+IN NS dns.de. 
+dns IN A 1.1.1.1
+gik. IN NS gik.de.
+gik IN A 40.40.0.100
+
+
+
+

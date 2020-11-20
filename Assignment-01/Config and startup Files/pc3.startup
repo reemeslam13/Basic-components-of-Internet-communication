@@ -1,0 +1,4 @@
+#ifconfig eth0 10.0.0.3 netmask 255.240.0.0 broadcast 10.0.0.3 up
+
+ip addr add 10.0.0.3/12 dev eth0
+

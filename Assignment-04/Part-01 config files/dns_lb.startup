@@ -1,0 +1,4 @@
+#!/bin/sh
+ip addr add 2.2.2.2/8 brd + dev eth0
+ip route add default via  2.0.0.3 dev eth0
+coredns -conf /hostlab/dns_lb/Corefile &

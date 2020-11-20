@@ -1,0 +1,30 @@
+\documentclass[12pt, a4paper,openany]{book}%, oneside
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{lscape} 
+\usepackage{float} 
+\usepackage{ragged2e}
+\begin{document}
+% \overfullrule=5pt
+
+\pagestyle{plain}
+\pagenumbering{Roman}
+\include{front_page}
+\tableofcontents
+\listoffigures
+\pagenumbering{arabic}
+\include{Wireshark_Handling}
+\include{Wireshark_Packet_Filtering}
+\include{Basic_Linux_Network}
+
+%\clearpage 
+
+\pagestyle{headings}
+% \setlength\parskip{15pt}
+\setlength\parskip{.5\baselineskip plus .2\baselineskip
+	minus .4\baselineskip}
+% \setlength\parskip{.5\baselineskip \@plus .1\baselineskip \@minus ..1\baselineskip}
+% add more chapters here
+
+
+\end{document}

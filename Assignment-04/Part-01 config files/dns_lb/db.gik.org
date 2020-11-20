@@ -1,0 +1,17 @@
+$TTL    60000
+@               IN      SOA     dns.gik.org.    root.dns.gik.org. (
+                        2006031201 ; serial
+                        28 ; refresh
+                        14 ; retry
+                        3600000 ; expire
+                        0 ; negative cache ttl
+                        )
+@               IN      NS      dns.gik.org.
+dns          IN      A       2.2.2.2
+IN NS gik.org.
+gik IN A 50.50.0.100
+gik IN A 50.50.0.101
+gik IN A 50.50.0.102
+
+
+

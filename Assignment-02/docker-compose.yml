@@ -1,0 +1,27 @@
+version: '3'
+services:
+  unibaktrAlpine:
+    image: unibaktr/alpine:busybox
+    container_name: unibaktrAlpine
+    stdin_open: true
+    tty: true
+    volumes: 
+      - .:/home
+
+  unibaktrVyos:
+    image: unibaktr/vyos
+    container_name: unibaktrVyos
+    stdin_open: true
+    tty: true
+    volumes: 
+      - .:/home
+
+  alpine:
+    image: alpine
+    container_name: alpine
+    stdin_open: true
+    tty: true
+    volumes: 
+      - .:/home
+  
+  

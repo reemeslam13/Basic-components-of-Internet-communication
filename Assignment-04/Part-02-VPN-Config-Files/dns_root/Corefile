@@ -1,0 +1,17 @@
+. {
+     log
+     errors
+     file /hostlab/dns_root/db.root
+}
+
+de {
+     log
+     errors
+     file /hostlab/dns_root/db.gik.de
+}
+
+org {
+     log
+     errors
+    forward org 2.2.2.2
+}

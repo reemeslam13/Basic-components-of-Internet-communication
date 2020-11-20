@@ -1,0 +1,13 @@
+#commands to execute in the Web_cascade terminal.
+Kathara connect web_cascade
+vpnserver start
+HubCreate(VPN_1)
+hub vpn_1
+CascadeCreate
+Cascade Connection Name: Cascade
+Destination VPN Server Host Name and Port Number: 40.40.0.99:443
+Destination Virtual Hub Name: VPN
+Connecting User Name: s2s
+BridgeCreate VPN /DEVICE:intern /TAP:yes
+cascadepasswordset
+CascadeOnline

@@ -1,0 +1,4 @@
+ifconfig eth0 20.20.0.3 netmask 255.255.240.0 broadcast 20.20.14.255 up
+ifconfig eth1 50.50.0.3 netmask 255.255.255.128 broadcast 50.50.0.127 up
+#route add -net 10.10.0.0 netmask 255.255.255.0 gw 20.20.0.1 dev eth0
+

@@ -1,0 +1,2 @@
+#!/bin/sh
+ip -6 addr add 2010:db8:1::beef/64 dev eth0

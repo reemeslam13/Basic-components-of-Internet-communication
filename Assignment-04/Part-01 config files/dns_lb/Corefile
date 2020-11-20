@@ -1,0 +1,12 @@
+. {
+     log
+     errors
+     forward . 1.1.1.1
+}
+
+org {
+     log
+     errors 
+     loadbalance round_robin
+     file /hostlab/dns_lb/db.gik.org
+}
