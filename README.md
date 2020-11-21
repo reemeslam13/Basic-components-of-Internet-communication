@@ -1,5 +1,5 @@
 # Introduction
-In this course we learned the basics of netwrok and internet communications and we build seven assignments each with small netwrks and with more advanced level than the one before.
+In this course we learned the basics of netwrok and internet communication and we build seven assignments each with small netwrks and with more advanced level than the one before.
 In each assignment there is report to explain the netwrok and how we build it.
 
 How it works?
